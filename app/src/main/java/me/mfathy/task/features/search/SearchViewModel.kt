@@ -6,9 +6,11 @@ import me.mfathy.task.data.model.OpeningState
 import me.mfathy.task.data.model.Restaurant
 import me.mfathy.task.data.model.SortingKeys
 import me.mfathy.task.features.base.BaseViewModel
+import me.mfathy.task.features.bookmark.BookmarkObserver
 import me.mfathy.task.interactors.favorites.BookmarkRestaurant
 import me.mfathy.task.interactors.favorites.UnBookmarkRestaurant
 import me.mfathy.task.interactors.restaurants.GetRestaurants
+import me.mfathy.task.states.BookmarkResult
 import me.mfathy.task.states.DataException
 import me.mfathy.task.states.RestaurantResult
 import java.util.*
@@ -23,9 +25,9 @@ import javax.inject.Inject
  */
 class SearchViewModel @Inject constructor(
     private val getRestaurants: GetRestaurants,
-    bookmarkRestaurant: BookmarkRestaurant,
-    unBookmarkMovie: UnBookmarkRestaurant
-) : BaseViewModel(bookmarkRestaurant, unBookmarkMovie) {
+    private val bookmarkRestaurant: BookmarkRestaurant,
+    private val unBookmarkRestaurant: UnBookmarkRestaurant
+) : BaseViewModel() {
 
     /**
      * Selected sorting option for restaurants list.
@@ -121,4 +123,24 @@ class SearchViewModel @Inject constructor(
             )
         }
     }
+
+    //region Bookmarking
+    private val bookmarkMovieLiveData: MutableLiveData<BookmarkResult> = MutableLiveData()
+
+    fun getBookmarkRestaurantLiveData() = bookmarkMovieLiveData
+
+    fun setBookmarkedRestaurant(restaurant: Restaurant, position: Int) {
+        val bookmarkObserver = BookmarkObserver(this, restaurant, position)
+        if (restaurant.isFavorite)
+            bookmarkRestaurant.execute(
+                bookmarkObserver,
+                BookmarkRestaurant.Params(restaurant)
+            )
+        else
+            unBookmarkRestaurant.execute(
+                bookmarkObserver,
+                UnBookmarkRestaurant.Params(restaurant)
+            )
+    }
+    //endregion
 }

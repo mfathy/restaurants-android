@@ -22,7 +22,7 @@ import javax.inject.Inject
  */
 class RestaurantsAdapter @Inject constructor(
     private val mContext: Context,
-    private var restaurants: MutableList<Restaurant>,
+    private var originalRestaurants: MutableList<Restaurant>,
     private var filteredRestaurants: MutableList<Restaurant>,
     private val attachListener: OnAttachRestaurantsListener
 ) :
@@ -50,9 +50,9 @@ class RestaurantsAdapter @Inject constructor(
             override fun performFiltering(charSequence: CharSequence): FilterResults {
                 val charString = charSequence.toString()
                 filteredRestaurants = if (charString.isEmpty()) {
-                    restaurants
+                    originalRestaurants
                 } else {
-                    restaurants.filter {
+                    originalRestaurants.filter {
                         it.name.toLowerCase(Locale.getDefault())
                             .contains(charString.toLowerCase(Locale.getDefault()))
                     }.toMutableList()
@@ -63,39 +63,44 @@ class RestaurantsAdapter @Inject constructor(
                 return filterResults
             }
 
+            @Suppress("UNCHECKED_CAST")
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
                 filteredRestaurants = filterResults.values as MutableList<Restaurant>
 
                 // refresh the list with filtered data
-                val restaurantDiffUtils = RestaurantDiffUtils(restaurants, filteredRestaurants)
+                val restaurantDiffUtils =
+                    RestaurantDiffUtils(originalRestaurants, filteredRestaurants)
                 val result = DiffUtil.calculateDiff(restaurantDiffUtils)
                 result.dispatchUpdatesTo(this@RestaurantsAdapter)
             }
         }
     }
 
-    fun appendRestaurants(list: List<Restaurant>) {
-        resetRestaurants()
-        this.restaurants.addAll(list)
-        this.filteredRestaurants.addAll(list)
-        notifyDataSetChanged()
-    }
+    fun updateRestaurants(list: List<Restaurant>) {
+        val restaurantDiffUtils = RestaurantDiffUtils(list.toMutableList(), filteredRestaurants)
+        val diffResult = DiffUtil.calculateDiff(restaurantDiffUtils)
 
-    fun resetRestaurants() {
-        this.restaurants.clear()
-        this.filteredRestaurants.clear()
+        resetRestaurants()
+        this.originalRestaurants.addAll(list)
+        this.filteredRestaurants.addAll(list)
+
+        diffResult.dispatchUpdatesTo(this)
     }
 
     fun updateRestaurant(restaurantPair: Pair<Int, Restaurant>) {
-        restaurants[restaurantPair.first] = restaurantPair.second
         filteredRestaurants[restaurantPair.first] = restaurantPair.second
         notifyItemChanged(restaurantPair.first)
+    }
+
+    private fun resetRestaurants() {
+        this.originalRestaurants.clear()
+        this.filteredRestaurants.clear()
     }
 
     fun sortItems(comparator: Comparator<Restaurant>) {
         filteredRestaurants.sortWith(comparator)
 
-        val restaurantDiffUtils = RestaurantDiffUtils(restaurants, filteredRestaurants)
+        val restaurantDiffUtils = RestaurantDiffUtils(originalRestaurants, filteredRestaurants)
         val result = DiffUtil.calculateDiff(restaurantDiffUtils)
         result.dispatchUpdatesTo(this)
     }
@@ -106,7 +111,6 @@ class RestaurantsAdapter @Inject constructor(
         var textViewOpenStatue: TextView? = view.findViewById(R.id.textView_restaurant_open_status)
         var imageViewFavoriteBtn: ImageView? = view.findViewById(R.id.imageView_ListItem_favorite)
 
-
         companion object {
             fun create(parent: ViewGroup): RestaurantViewHolder {
                 val itemView = LayoutInflater
@@ -116,38 +120,46 @@ class RestaurantsAdapter @Inject constructor(
             }
         }
 
-
         fun bindView(
             holder: RestaurantViewHolder,
             mContext: Context,
-            restaurant: Restaurant, attachListener: OnAttachRestaurantsListener
+            restaurant: Restaurant,
+            attachListener: OnAttachRestaurantsListener
         ) {
+
 
             holder.textViewName?.text = restaurant.name
             holder.textViewOpenStatue?.text = restaurant.status
 
             holder.imageViewFavoriteBtn?.let {
-                it.visibility = View.VISIBLE
-                if (restaurant.isFavorite) it.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        mContext,
-                        R.drawable.ic_favorite_remove
-                    )
-                )
-                else it.setImageDrawable(
-                    ContextCompat.getDrawable(
-                        mContext,
-                        R.drawable.ic_favorite_add
-                    )
-                )
+
+                updateFavoriteIcon(mContext, restaurant.isFavorite, it)
 
                 it.setOnClickListener {
+                    restaurant.isFavorite = !restaurant.isFavorite
                     attachListener.bookmarkRestaurant(restaurant, adapterPosition)
                 }
             }
         }
 
-    }
+        private fun updateFavoriteIcon(
+            context: Context,
+            isFavorite: Boolean,
+            imageView: ImageView
+        ) {
+            val removeDrawable = ContextCompat.getDrawable(
+                context,
+                R.drawable.ic_favorite_remove
+            )
+            val addDrawable = ContextCompat.getDrawable(
+                context,
+                R.drawable.ic_favorite_add
+            )
 
+            if (isFavorite) imageView.setImageDrawable(removeDrawable)
+            else imageView.setImageDrawable(addDrawable)
+        }
+
+    }
 
 }

@@ -1,12 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <ProgressBar
+        android:id="@+id/progressBar_movieList_loading"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/textView_selected_sort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:padding="@dimen/half_grid_unit" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/textView_selected_sort"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:gravity="center"
         android:visibility="visible">
 
@@ -19,21 +43,13 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-    <ProgressBar
-        android:id="@+id/progressBar_movieList_loading"
-        style="@style/Widget.AppCompat.ProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:visibility="gone" />
-
     <TextView
         android:id="@+id/textView_List_callToAction"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_centerInParent="true"
         android:layout_margin="@dimen/seven_grid_unit"
         android:fontFamily="sans-serif-medium"
-        android:gravity="center"
         android:text="@string/error_no_restaurants"
         android:textColor="@color/textColorPrimary"
         android:textSize="@dimen/text_size_large_material" />
@@ -43,9 +59,10 @@
         android:id="@+id/fab_sort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:src="@drawable/ic_sort"
-        android:onClick="showSortingValues"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
         android:contentDescription="@string/action_sort"
-        android:layout_margin="16dp" />
-</FrameLayout>
+        android:onClick="showSortingValues"
+        android:src="@drawable/ic_sort" />
+</RelativeLayout>

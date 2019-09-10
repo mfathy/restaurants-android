@@ -52,6 +52,7 @@ ext {
 
     roomVersion = '2.1.0'
 
+    konveyorVersion = '1.0.3'
 
     rxAndroidVersion = '2.1.0'
     rxKotlinVersion = '2.1.0'

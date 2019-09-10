@@ -166,5 +166,10 @@ dependencies {
     kaptTest "com.google.dagger:dagger-compiler:${rootProject.ext.daggerVersion}"
     kaptAndroidTest "com.google.dagger:dagger-compiler:${rootProject.ext.daggerVersion}"
 
+
+    //  Test generators
+    testImplementation "com.github.vacxe:konveyor:${rootProject.ext.konveyorVersion}"
+    androidTestImplementation "com.github.vacxe:konveyor:${rootProject.ext.konveyorVersion}"
+
 }
 

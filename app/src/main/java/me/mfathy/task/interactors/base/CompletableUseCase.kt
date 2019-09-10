@@ -14,7 +14,6 @@ abstract class CompletableUseCase<in Params> {
     abstract fun buildUseCaseCompletable(params: Params): Completable
 
     fun execute(observer: CompletableObserver, params: Params): CompletableObserver {
-        return this.buildUseCaseCompletable(params)
-            .subscribeWith(observer)
+        return this.buildUseCaseCompletable(params).subscribeWith(observer)
     }
 }

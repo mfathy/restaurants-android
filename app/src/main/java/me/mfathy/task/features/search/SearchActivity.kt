@@ -150,10 +150,24 @@ class SearchActivity : BaseActivity(),
 
     }
 
+    private fun getSortingString(key: SortingKeys): String {
+        return when (key) {
+            SortingKeys.AVERAGE_PRODUCT_PRICE -> getString(R.string.action_averageProductPrice)
+            SortingKeys.BEST_MATCH -> getString(R.string.action_bestMatch)
+            SortingKeys.DISTANCE -> getString(R.string.action_distance)
+            SortingKeys.DELIVERY_COSTS -> getString(R.string.action_deliveryCosts)
+            SortingKeys.POPULARITY -> getString(R.string.action_popularity)
+            SortingKeys.NEWEST -> getString(R.string.action_newest)
+            SortingKeys.MIN_COST -> getString(R.string.action_minCost)
+            SortingKeys.RATING_AVERAGE -> getString(R.string.action_ratingAverage)
+        }
+    }
+
     private fun observeSortingLiveData() {
 
         viewModel.getSortingOptionLiveData().observe(this, Observer {
             val comparator = viewModel.buildSortByOptionsComparator(it)
+            textView_selected_sort.text = getSortingString(it)
             restaurantsAdapter.sortItems(comparator)
         })
     }
@@ -210,7 +224,7 @@ class SearchActivity : BaseActivity(),
             return
         }
 
-        restaurantsAdapter.appendRestaurants(result.data)
+        restaurantsAdapter.updateRestaurants(result.data)
         updateViewVisibility(
             showData = true
         )
@@ -239,10 +253,7 @@ class SearchActivity : BaseActivity(),
     }
 
     override fun bookmarkRestaurant(restaurant: Restaurant, position: Int) {
-        if (restaurant.isFavorite)
-            viewModel.setUnBookmarkedRestaurant(restaurant, position)
-        else
-            viewModel.setBookmarkedRestaurant(restaurant, position)
+        viewModel.setBookmarkedRestaurant(restaurant, position)
     }
 
 }

@@ -13,7 +13,6 @@ class BookmarkRestaurant @Inject constructor(
     override fun buildUseCaseCompletable(params: Params): Completable =
         repository.bookmarkRestaurant(params.restaurant).subscribeAndObserve()
 
-
     data class Params(val restaurant: Restaurant)
 
 }
