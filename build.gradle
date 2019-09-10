@@ -1,0 +1,101 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext.kotlin_version = '1.3.31'
+    repositories {
+        google()
+        jcenter()
+        
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+
+    //Android
+    androidBuildToolsVersion = "28.0.3"
+    androidMinSdkVersion = 21
+    androidTargetSdkVersion = 28
+    androidCompileSdkVersion = 28
+    kotlinVersion = '1.3.31'
+    ktxVersion = '1.2.0-alpha01'
+
+    //Libraries
+    androidXVersion = '1.1.0-alpha02'
+    androidXMaterialVersion = '1.1.0-alpha03'
+
+    vectorDrawableVersion = '1.0.0'
+    recyclerviewVersion = '1.1.0-alpha02'
+    cardviewVersion = '1.0.0'
+
+    constraintlayoutVersion = '2.0.0-alpha3'
+
+    daggerVersion = '2.16'
+
+    playServicesVersion = '16.1.0'
+
+    roomVersion = '2.1.0'
+
+
+    rxAndroidVersion = '2.1.0'
+    rxKotlinVersion = '2.1.0'
+    rxJavaVersion = '2.1.0'
+
+    javaxAnnotationVersion = '1.0'
+    javaxInjectVersion = '1'
+
+    lifecycle_version = '2.0.0'
+    navigationVersion = '1.0.0-alpha11'
+
+    retrofitVersion = '2.5.0'
+    okHttpVersion = '4.0.0-alpha02'
+    gsonVersion = '2.8.5'
+
+    glideVersion = '4.9.0'
+
+    //Testing
+    jUnitVersion = '4.13-beta-3'
+    jUnitExtVersion = '1.0.0'
+
+    dexmakerMockitoversion = '2.2.0'
+    mockitoAndroidVersion = "2.8.9"
+    mockitoVersion = '1.9.5'
+    mockitoInlineVersion = '2.7.13'
+    mockitoVersion_all = "1.10.19"
+
+    assertJVersion = '3.12.2'
+
+    hamcrestVersion = '2.1'
+
+    truthVersion = '0.42'
+
+    robolectricVersion = '4.3-beta-1'
+
+    espressoVersion = '3.2.0-beta01'
+
+    runnerVersion = '1.2.0-beta01'
+
+    mockWebServerVersion = '4.0.0-alpha02'
+
+    okhttpIdlingVersion = '1.0.0'
+
+    tesCoreVersion = '1.2.0-beta01'
+
+    uiAnimatorVersion = '2.2.0'
+}
