@@ -2,7 +2,7 @@ package me.mfathy.task.injection.module
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import me.mfathy.task.features.search.SearchViewModel
+import me.mfathy.task.features.restaurants.RestaurantsViewModel
 import me.mfathy.task.injection.factory.ViewModelFactory
 import dagger.Binds
 import dagger.MapKey
@@ -18,8 +18,8 @@ abstract class ViewModelsModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(SearchViewModel::class)
-    abstract fun bindSearchViewModel(viewModel: SearchViewModel): ViewModel
+    @ViewModelKey(RestaurantsViewModel::class)
+    abstract fun bindSearchViewModel(viewModel: RestaurantsViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

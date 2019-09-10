@@ -5,9 +5,11 @@ import io.reactivex.Single
 import konveyor.base.randomBuild
 import me.mfathy.task.any
 import me.mfathy.task.data.mapper.RestaurantMapper
+import me.mfathy.task.data.mapper.SortingValueMapper
 import me.mfathy.task.data.model.Restaurant
 import me.mfathy.task.data.store.cache.CacheStore
 import me.mfathy.task.data.store.remote.RemoteStore
+import me.mfathy.task.data.store.remote.models.RestaurantItem
 import me.mfathy.task.data.store.remote.models.RestaurantsResponse
 import org.junit.Before
 import org.junit.Test
@@ -26,6 +28,8 @@ class RestaurantsDataRepositoryTest {
 
     private lateinit var repositoryUnderTest: RestaurantsDataRepository
 
+    private val mapper = RestaurantMapper(SortingValueMapper())
+
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
@@ -36,8 +40,9 @@ class RestaurantsDataRepositoryTest {
     @Throws(Exception::class)
     fun testGetRestaurants_Completes() {
 
-        val response = randomBuild(RestaurantsResponse::class.java)
-        val restaurant = randomBuild(Restaurant::class.java)
+        val item = randomBuild(RestaurantItem::class.java)
+        val response = RestaurantsResponse(listOf(item))
+        val restaurant = mapper.mapToEntity(item)
 
         stubRemoteGetRestaurants(response)
         stubCacheGetFavorits(restaurant)
@@ -51,8 +56,9 @@ class RestaurantsDataRepositoryTest {
     @Throws(Exception::class)
     fun testGetRestaurants_ReturnData() {
 
-        val response = randomBuild(RestaurantsResponse::class.java)
-        val restaurant = randomBuild(Restaurant::class.java)
+        val item = randomBuild(RestaurantItem::class.java)
+        val response = RestaurantsResponse(listOf(item))
+        val restaurant = mapper.mapToEntity(item)
 
         stubRemoteGetRestaurants(response)
         stubCacheGetFavorits(restaurant)
@@ -67,8 +73,9 @@ class RestaurantsDataRepositoryTest {
     @Throws(Exception::class)
     fun testGetRestaurants_CallsRepository() {
 
-        val response = randomBuild(RestaurantsResponse::class.java)
-        val restaurant = randomBuild(Restaurant::class.java)
+        val item = randomBuild(RestaurantItem::class.java)
+        val response = RestaurantsResponse(listOf(item))
+        val restaurant = mapper.mapToEntity(item)
 
         stubRemoteGetRestaurants(response)
         stubCacheGetFavorits(restaurant)
@@ -115,6 +122,18 @@ class RestaurantsDataRepositoryTest {
         repositoryUnderTest.getFavorites()
             .test()
             .assertComplete()
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun testGetFavorites_ReturnsData() {
+
+        val restaurant = randomBuild(Restaurant::class.java)
+        stubCacheGetFavorits(restaurant)
+
+        repositoryUnderTest.getFavorites()
+            .test()
+            .assertValue(listOf(restaurant))
     }
 
     private fun stubMapperMaptoEntity(restaurant: Restaurant) {

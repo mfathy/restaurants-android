@@ -1,11 +1,10 @@
 package me.mfathy.task.injection.component
 
-import me.mfathy.task.BingeApp
+import me.mfathy.task.RestaurantsApp
 import me.mfathy.task.injection.module.*
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
-import me.mfathy.task.injection.module.*
 import javax.inject.Singleton
 
 /**
@@ -24,9 +23,9 @@ import javax.inject.Singleton
     ]
 )
 
-interface ApplicationComponent : AndroidInjector<BingeApp> {
+interface ApplicationComponent : AndroidInjector<RestaurantsApp> {
 
     @Component.Builder
-    abstract class Builder : AndroidInjector.Builder<BingeApp>()
+    abstract class Builder : AndroidInjector.Builder<RestaurantsApp>()
 
 }

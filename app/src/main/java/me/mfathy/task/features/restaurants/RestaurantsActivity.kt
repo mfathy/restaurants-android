@@ -1,4 +1,4 @@
-package me.mfathy.task.features.search
+package me.mfathy.task.features.restaurants
 
 import android.app.SearchManager
 import android.content.Context
@@ -24,12 +24,12 @@ import me.mfathy.task.states.RestaurantResult
 import javax.inject.Inject
 
 
-class SearchActivity : BaseActivity(),
+class RestaurantsActivity : BaseActivity(),
     RestaurantsAdapter.OnAttachRestaurantsListener, PopupMenu.OnMenuItemClickListener {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private lateinit var viewModel: SearchViewModel
+    private lateinit var viewModel: RestaurantsViewModel
     private lateinit var restaurantsAdapter: RestaurantsAdapter
 
     private lateinit var layoutManager: LinearLayoutManager
@@ -40,7 +40,7 @@ class SearchActivity : BaseActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_restaurants)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(SearchViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(RestaurantsViewModel::class.java)
 
         initViews()
 
@@ -114,7 +114,7 @@ class SearchActivity : BaseActivity(),
     private fun showPopup(v: View) {
         PopupMenu(this, v).apply {
             // MainActivity implements OnMenuItemClickListener
-            setOnMenuItemClickListener(this@SearchActivity)
+            setOnMenuItemClickListener(this@RestaurantsActivity)
             inflate(R.menu.menu_sort_actions)
             show()
         }

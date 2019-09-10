@@ -1,4 +1,4 @@
-package me.mfathy.task.features.search
+package me.mfathy.task.features.restaurants
 
 import android.content.Context
 import android.view.LayoutInflater

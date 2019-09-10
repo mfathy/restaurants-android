@@ -1,4 +1,4 @@
-package me.mfathy.task.features.search
+package me.mfathy.task.features.restaurants
 
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.observers.DisposableSingleObserver
@@ -21,34 +21,40 @@ import javax.inject.Inject
  * Created by Mohammed Fathy.
  * dev.mfathy@gmail.com
  *
- * SearchActivity view-model
+ * RestaurantsActivity view-model
  */
-class SearchViewModel @Inject constructor(
+class RestaurantsViewModel @Inject constructor(
     private val getRestaurants: GetRestaurants,
     private val bookmarkRestaurant: BookmarkRestaurant,
     private val unBookmarkRestaurant: UnBookmarkRestaurant
 ) : BaseViewModel() {
 
     /**
+     * Default sorting option for restaurants.
+     */
+    private val defaultSortingOption = SortingKeys.POPULARITY
+
+    /**
      * Selected sorting option for restaurants list.
      */
     private val sortingOptionLiveData: MutableLiveData<SortingKeys> = MutableLiveData()
-
-    fun getSortingOptionLiveData() = sortingOptionLiveData
-
-    private val defaultSortingOption = SortingKeys.POPULARITY
-
-    fun setSelectedSortingOption(selectedOption: SortingKeys) {
-        sortingOptionLiveData.postValue(selectedOption)
-    }
 
     /**
      * Restaurants results Live data to post changes to UI.
      */
     private val restaurantsLiveData: MutableLiveData<RestaurantResult> = MutableLiveData()
 
+    fun getSortingOptionLiveData() = sortingOptionLiveData
+
     fun getRestaurantsLiveData() = restaurantsLiveData
 
+    fun setSelectedSortingOption(selectedOption: SortingKeys) {
+        sortingOptionLiveData.postValue(selectedOption)
+    }
+
+    /**
+     * Start fetching restaurants.
+     */
     fun fetchRestaurants() {
         //  Update loading progress.
         showProgress()
@@ -65,6 +71,9 @@ class SearchViewModel @Inject constructor(
         restaurantsLiveData.postValue(RestaurantResult.OnLoading)
     }
 
+    /**
+     * Builds sorting comparator for restaurants list.
+     */
     fun buildSortByOptionsComparator(sortingKey: SortingKeys?): Comparator<Restaurant> {
         val byFavorites = compareByDescending<Restaurant> { restaurant -> restaurant.isFavorite }
         val byOpeningState: (Restaurant) -> OpeningState = { restaurant ->
@@ -125,6 +134,9 @@ class SearchViewModel @Inject constructor(
     }
 
     //region Bookmarking
+    /**
+     * Bookmark live data observable.
+     */
     private val bookmarkMovieLiveData: MutableLiveData<BookmarkResult> = MutableLiveData()
 
     fun getBookmarkRestaurantLiveData() = bookmarkMovieLiveData
