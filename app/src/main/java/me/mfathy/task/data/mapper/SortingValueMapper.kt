@@ -3,7 +3,7 @@ package me.mfathy.task.data.mapper
 import me.mfathy.task.data.model.Sorting
 import me.mfathy.task.data.store.remote.models.SortingValues
 
-class SortingValueMapper : EntityMapper<Sorting, SortingValues> {
+open class SortingValueMapper : EntityMapper<Sorting, SortingValues> {
     override fun mapFromEntity(entity: Sorting): SortingValues = SortingValues(
         averageProductPrice = entity.averageProductPrice,
         bestMatch = entity.bestMatch,

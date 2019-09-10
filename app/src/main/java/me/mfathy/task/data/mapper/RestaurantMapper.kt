@@ -4,7 +4,7 @@ import me.mfathy.task.data.model.Restaurant
 import me.mfathy.task.data.store.remote.models.RestaurantItem
 import javax.inject.Inject
 
-class RestaurantMapper @Inject constructor(
+open class RestaurantMapper @Inject constructor(
     private val sortingMapper: SortingValueMapper
 ) : EntityMapper<Restaurant, RestaurantItem> {
     override fun mapFromEntity(entity: Restaurant): RestaurantItem = RestaurantItem(
