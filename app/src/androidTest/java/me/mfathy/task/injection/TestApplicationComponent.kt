@@ -1,12 +1,12 @@
 package me.mfathy.task.injection
 
 import android.app.Application
-import me.mfathy.task.TestApplication
-import me.mfathy.task.data.repository.RestaurantsRepository
-import me.mfathy.task.injection.module.ViewModelsModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.support.AndroidSupportInjectionModule
+import me.mfathy.task.TestApplication
+import me.mfathy.task.data.repository.RestaurantsRepository
+import me.mfathy.task.injection.module.ViewModelsModule
 import javax.inject.Singleton
 
 @Singleton
@@ -16,7 +16,7 @@ import javax.inject.Singleton
         TestDataModule::class,
         ViewModelsModule::class,
         TestUiModule::class,
-        TestMemoryModule::class,
+        TestCacheModule::class,
         TestRemoteModule::class]
 )
 interface TestApplicationComponent {

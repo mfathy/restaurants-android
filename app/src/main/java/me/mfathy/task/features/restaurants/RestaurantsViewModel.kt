@@ -1,4 +1,4 @@
-package me.mfathy.task.features.search
+package me.mfathy.task.features.restaurants
 
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.observers.DisposableSingleObserver
@@ -7,6 +7,7 @@ import me.mfathy.task.data.model.Restaurant
 import me.mfathy.task.data.model.SortingKeys
 import me.mfathy.task.features.base.BaseViewModel
 import me.mfathy.task.features.bookmark.BookmarkObserver
+import me.mfathy.task.idlingResource.SimpleIdlingResource
 import me.mfathy.task.interactors.favorites.BookmarkRestaurant
 import me.mfathy.task.interactors.favorites.UnBookmarkRestaurant
 import me.mfathy.task.interactors.restaurants.GetRestaurants
@@ -21,35 +22,52 @@ import javax.inject.Inject
  * Created by Mohammed Fathy.
  * dev.mfathy@gmail.com
  *
- * SearchActivity view-model
+ * RestaurantsActivity view-model
  */
-class SearchViewModel @Inject constructor(
+class RestaurantsViewModel @Inject constructor(
     private val getRestaurants: GetRestaurants,
     private val bookmarkRestaurant: BookmarkRestaurant,
     private val unBookmarkRestaurant: UnBookmarkRestaurant
 ) : BaseViewModel() {
 
     /**
+     * Idling resource for espresso testing.
+     */
+    private lateinit var mIdlingResource: SimpleIdlingResource
+
+    fun setIdlingResource(idlingResource: SimpleIdlingResource) {
+        this.mIdlingResource = idlingResource
+    }
+
+    /**
+     * Default sorting option for restaurants.
+     */
+    private val defaultSortingOption = SortingKeys.POPULARITY
+
+    /**
      * Selected sorting option for restaurants list.
      */
     private val sortingOptionLiveData: MutableLiveData<SortingKeys> = MutableLiveData()
-
-    fun getSortingOptionLiveData() = sortingOptionLiveData
-
-    private val defaultSortingOption = SortingKeys.POPULARITY
-
-    fun setSelectedSortingOption(selectedOption: SortingKeys) {
-        sortingOptionLiveData.postValue(selectedOption)
-    }
 
     /**
      * Restaurants results Live data to post changes to UI.
      */
     private val restaurantsLiveData: MutableLiveData<RestaurantResult> = MutableLiveData()
 
+    fun getSortingOptionLiveData() = sortingOptionLiveData
+
     fun getRestaurantsLiveData() = restaurantsLiveData
 
+    fun setSelectedSortingOption(selectedOption: SortingKeys) {
+        sortingOptionLiveData.postValue(selectedOption)
+    }
+
+    /**
+     * Start fetching restaurants.
+     */
     fun fetchRestaurants() {
+        if (::mIdlingResource.isInitialized) mIdlingResource.setIdleState(false)
+
         //  Update loading progress.
         showProgress()
 
@@ -65,6 +83,9 @@ class SearchViewModel @Inject constructor(
         restaurantsLiveData.postValue(RestaurantResult.OnLoading)
     }
 
+    /**
+     * Builds sorting comparator for restaurants list.
+     */
     fun buildSortByOptionsComparator(sortingKey: SortingKeys?): Comparator<Restaurant> {
         val byFavorites = compareByDescending<Restaurant> { restaurant -> restaurant.isFavorite }
         val byOpeningState: (Restaurant) -> OpeningState = { restaurant ->
@@ -113,6 +134,8 @@ class SearchViewModel @Inject constructor(
             mutableList.sortWith(sortByOptionComparator)
 
             restaurantsLiveData.postValue(RestaurantResult.OnSuccess(mutableList))
+
+            if (::mIdlingResource.isInitialized) mIdlingResource.setIdleState(true)
         }
 
         override fun onError(e: Throwable) {
@@ -121,10 +144,15 @@ class SearchViewModel @Inject constructor(
                     DataException.NotFoundException
                 )
             )
+
+            if (::mIdlingResource.isInitialized) mIdlingResource.setIdleState(true)
         }
     }
 
     //region Bookmarking
+    /**
+     * Bookmark live data observable.
+     */
     private val bookmarkMovieLiveData: MutableLiveData<BookmarkResult> = MutableLiveData()
 
     fun getBookmarkRestaurantLiveData() = bookmarkMovieLiveData

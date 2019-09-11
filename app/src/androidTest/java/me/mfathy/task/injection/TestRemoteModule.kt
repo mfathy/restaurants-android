@@ -1,8 +1,8 @@
 package me.mfathy.task.injection
 
-import me.mfathy.task.data.store.remote.RemoteStore
 import dagger.Module
 import dagger.Provides
+import me.mfathy.task.data.store.remote.RemoteStore
 import org.mockito.Mockito.mock
 
 @Module

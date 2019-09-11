@@ -1,11 +1,9 @@
 package me.mfathy.task.data.mapper
 
 import konveyor.base.randomBuild
-import org.junit.Assert
-import org.junit.Test
-
 import me.mfathy.task.data.model.Sorting
 import me.mfathy.task.data.store.remote.models.SortingValues
+import org.junit.Test
 import kotlin.test.assertEquals
 
 class SortingValueMapperTest {

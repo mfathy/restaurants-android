@@ -1,8 +1,8 @@
 package me.mfathy.task.injection
 
-import me.mfathy.task.data.repository.RestaurantsRepository
 import dagger.Module
 import dagger.Provides
+import me.mfathy.task.data.repository.RestaurantsRepository
 import org.mockito.Mockito.mock
 import javax.inject.Singleton
 

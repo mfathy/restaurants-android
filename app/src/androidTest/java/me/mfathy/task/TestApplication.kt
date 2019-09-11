@@ -3,11 +3,11 @@ package me.mfathy.task
 import android.app.Activity
 import android.app.Application
 import androidx.test.platform.app.InstrumentationRegistry
-import me.mfathy.task.injection.DaggerTestApplicationComponent
-import me.mfathy.task.injection.TestApplicationComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
+import me.mfathy.task.injection.DaggerTestApplicationComponent
+import me.mfathy.task.injection.TestApplicationComponent
 import javax.inject.Inject
 
 /**

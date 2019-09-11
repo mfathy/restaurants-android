@@ -1,4 +1,4 @@
-package me.mfathy.task.features.search
+package me.mfathy.task.features.restaurants
 
 import androidx.recyclerview.widget.DiffUtil
 import me.mfathy.task.data.model.Restaurant

@@ -1,10 +1,9 @@
 package me.mfathy.task.data.store.cache
 
-import me.mfathy.task.data.store.DataStore
 import io.reactivex.Completable
 import io.reactivex.Single
 import me.mfathy.task.data.model.Restaurant
-import me.mfathy.task.data.store.cache.models.CachedRestaurant
+import me.mfathy.task.data.store.DataStore
 
 /**
  * Created by Mohammed Fathy.

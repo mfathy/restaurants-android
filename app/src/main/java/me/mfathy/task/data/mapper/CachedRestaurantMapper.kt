@@ -9,6 +9,7 @@ open class CachedRestaurantMapper : EntityMapper<Restaurant, CachedRestaurant> {
     )
 
     override fun mapToEntity(domain: CachedRestaurant): Restaurant = Restaurant(
-        name = domain.name, isFavorite = domain.isFavorite
+        name = domain.name,
+        isFavorite = domain.isFavorite
     )
 }

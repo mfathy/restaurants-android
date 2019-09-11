@@ -1,4 +1,4 @@
-package me.mfathy.task.features.search
+package me.mfathy.task.features.restaurants
 
 import android.app.SearchManager
 import android.content.Context
@@ -8,15 +8,18 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.PopupMenu
 import android.widget.SearchView
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_restaurants.*
+import me.mfathy.task.BuildConfig
 import me.mfathy.task.R
 import me.mfathy.task.data.model.Restaurant
 import me.mfathy.task.data.model.SortingKeys
 import me.mfathy.task.features.base.BaseActivity
+import me.mfathy.task.idlingResource.SimpleIdlingResource
 import me.mfathy.task.injection.factory.ViewModelFactory
 import me.mfathy.task.states.BookmarkResult
 import me.mfathy.task.states.DataException
@@ -24,12 +27,15 @@ import me.mfathy.task.states.RestaurantResult
 import javax.inject.Inject
 
 
-class SearchActivity : BaseActivity(),
+class RestaurantsActivity : BaseActivity(),
     RestaurantsAdapter.OnAttachRestaurantsListener, PopupMenu.OnMenuItemClickListener {
+
+    // The Idling Resource which will be null in production.
+    private lateinit var mIdlingResource: SimpleIdlingResource
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    private lateinit var viewModel: SearchViewModel
+    private lateinit var viewModel: RestaurantsViewModel
     private lateinit var restaurantsAdapter: RestaurantsAdapter
 
     private lateinit var layoutManager: LinearLayoutManager
@@ -40,7 +46,11 @@ class SearchActivity : BaseActivity(),
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_restaurants)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(SearchViewModel::class.java)
+        viewModel =
+            ViewModelProviders.of(this, viewModelFactory).get(RestaurantsViewModel::class.java)
+        if (BuildConfig.DEBUG) {
+            viewModel.setIdlingResource(getIdlingResource())
+        }
 
         initViews()
 
@@ -114,7 +124,7 @@ class SearchActivity : BaseActivity(),
     private fun showPopup(v: View) {
         PopupMenu(this, v).apply {
             // MainActivity implements OnMenuItemClickListener
-            setOnMenuItemClickListener(this@SearchActivity)
+            setOnMenuItemClickListener(this@RestaurantsActivity)
             inflate(R.menu.menu_sort_actions)
             show()
         }
@@ -254,6 +264,17 @@ class SearchActivity : BaseActivity(),
 
     override fun bookmarkRestaurant(restaurant: Restaurant, position: Int) {
         viewModel.setBookmarkedRestaurant(restaurant, position)
+    }
+
+    /**
+     * Only called from test, creates and returns a new [SimpleIdlingResource].
+     */
+    @VisibleForTesting
+    fun getIdlingResource(): SimpleIdlingResource {
+        if (!::mIdlingResource.isInitialized) {
+            mIdlingResource = SimpleIdlingResource()
+        }
+        return mIdlingResource
     }
 
 }

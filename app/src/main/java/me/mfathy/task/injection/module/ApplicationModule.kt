@@ -2,9 +2,9 @@ package me.mfathy.task.injection.module
 
 import android.app.Application
 import android.content.Context
-import me.mfathy.task.BingeApp
 import dagger.Binds
 import dagger.Module
+import me.mfathy.task.RestaurantsApp
 
 
 /**
@@ -14,9 +14,9 @@ import dagger.Module
 abstract class ApplicationModule {
 
     @Binds
-    abstract fun bindContext(application: BingeApp): Context
+    abstract fun bindContext(application: RestaurantsApp): Context
 
     @Binds
-    abstract fun bindApplication(application: BingeApp): Application
+    abstract fun bindApplication(application: RestaurantsApp): Application
 
 }

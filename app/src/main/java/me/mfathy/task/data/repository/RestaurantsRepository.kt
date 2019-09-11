@@ -16,7 +16,7 @@ interface RestaurantsRepository {
      * Return a single which will emits a list of restaurants otherwise an error.
      */
     fun getRestaurants(): Single<List<Restaurant>>
-    
+
     /**
      * Return a Completable which complete bookmark operation or error.
      * @param restaurant to be bookmarked

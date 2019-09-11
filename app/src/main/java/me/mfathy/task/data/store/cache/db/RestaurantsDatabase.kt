@@ -25,8 +25,10 @@ abstract class RestaurantsDatabase : RoomDatabase() {
             if (INSTANCE == null) {
                 synchronized(lock) {
                     if (INSTANCE == null) {
-                        INSTANCE = Room.databaseBuilder(context.applicationContext,
-                                RestaurantsDatabase::class.java, BuildConfig.DATABASE_NAME).build()
+                        INSTANCE = Room.databaseBuilder(
+                            context.applicationContext,
+                            RestaurantsDatabase::class.java, BuildConfig.DATABASE_NAME
+                        ).build()
                     }
                     return INSTANCE as RestaurantsDatabase
                 }

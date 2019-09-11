@@ -8,7 +8,7 @@
 
 
     <application
-        android:name="me.mfathy.task.BingeApp"
+        android:name="me.mfathy.task.RestaurantsApp"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
@@ -18,7 +18,7 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="n">
 
-        <activity android:name="me.mfathy.task.features.search.SearchActivity">
+        <activity android:name="me.mfathy.task.features.restaurants.RestaurantsActivity">
 
             <meta-data
                 android:name="android.app.searchable"

@@ -2,9 +2,7 @@ package me.mfathy.task.data.mapper
 
 import konveyor.base.randomBuild
 import me.mfathy.task.data.model.Restaurant
-import me.mfathy.task.data.model.Sorting
 import me.mfathy.task.data.store.cache.models.CachedRestaurant
-import org.junit.Assert
 import org.junit.Test
 import kotlin.test.assertEquals
 

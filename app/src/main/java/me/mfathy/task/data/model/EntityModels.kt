@@ -8,9 +8,10 @@ data class Restaurant(
     var isFavorite: Boolean,
     val status: String = "",
     val sortingValues: Sorting = Sorting()
-){
+) {
 
     override fun equals(other: Any?): Boolean {
+        if (other == null) return false
         val restaurant = other as Restaurant
         return name == restaurant.name
     }
