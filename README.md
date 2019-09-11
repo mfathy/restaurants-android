@@ -27,15 +27,15 @@ I used the following libraries:
 ##### Implementing and visualise a restaurant list with filtering & sorting.
 * Task implemented using MVVM architecture with Dagger2, Room, and RxJava.
 * The app has the following packages:
-** data: It contains all the data accessing and manipulating components.
-*** Local: it has all the local database & data store implementation.
-*** Remote: it has all the remote data store implementation.
+* data: It contains all the data accessing and manipulating components.
+* Local: it has all the local database & data store implementation.
+* Remote: it has all the remote data store implementation.
 * features: View classes along with their corresponding ViewModel with presentation logic.
 * injection: Dependency providing classes using Dagger2.
 * interactors: It contains all use cases with their corresponding business logic if exists.
 
 
 ## Testing:
-* Task contains more than 80% of unit tests for project classes and 1 Espresso ui test for Restaurants activity.
+* Task contains unit tests for project classes and 1 Espresso ui test for Restaurants activity.
 
 
