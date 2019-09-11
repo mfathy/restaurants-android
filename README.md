@@ -1,19 +1,13 @@
-# Task 2
+# Takeaway Task
 
 By [Mohammed Fathy](mailto:dev.mfathy@gmail.com)
 
 ## Instructions
 
-1. Navigate to [repo](https://github.com/xing/test_android_binge-mfathy)
-2. Clone locally using
-        `git clone https://github.com/xing/test_android_binge-mfathy.git`
+1. Download task.zip file.
+2. Extract task.zip file.
 3. Start Android studio, then open the project, from open dialog.
 4. Wait until the project syncs and builds successfully.
-5. Start you local server.
-6. Run the project using the Android studio on you Android emulator or device.
-7. Please change server IP address to you machine IP if you will test the app on a device in 
-`gradle.properties` & 'res/xml/network_security_config.xml'
-
 
 ## Discussion
 
@@ -22,19 +16,26 @@ I used the following libraries:
 *   [Mockito](http://site.mockito.org/) - A mocking framework used to implement unit tests.
 *   [Dagger](https://github.com/google/dagger) - for dependency Injection
 *   [Gson](https://github.com/google/gson) - a json serialize and deserialize library.
-*   [RxJava](https://github.com/ReactiveX/RxJava) - Reactive Extensions for the JVM – a library for composing asynchronous and event-based programs using observable sequences for the Java VM. 
-*   [Okhttp](http://square.github.io/okhttp/) - An HTTP+HTTP/2 client for Android and Java applications.
+*   [RxJava](https://github.com/ReactiveX/RxJava) - Reactive Extensions for the JVM – a library for composing asynchronous and event-based programs using observable sequences for the Java VM.
 *   [Hamcrest](http://hamcrest.org/JavaHamcrest/) -  Junit Matchers
-*   [Retrofit](https://square.github.io/retrofit/) - A type-safe HTTP client for Android and Java.
 *   [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/) - LiveData & ViewModel.
-*   [Glide](https://github.com/bumptech/glide) - An image loading and caching library for Android focused on smooth scrolling.
+*   [Konveyor](https://github.com/vacxe/Konveyor) - Library for building objects with random parameters.
 
 
 ## Requirements
 
-##### Implementing adding/removing movies as favorites and a new favorites screen that shows users a list of all their favorites.
-* feature.Base package has common implementation of bookmark/un-bookmark operations
-in BaseViewModel.
-* SearchViewModel preserve search result and list state.
-* BookmarkObserver has common implementation for attached view model.
+##### Implementing and visualise a restaurant list with filtering & sorting.
+* Task implemented using MVVM architecture with Dagger2, Room, and RxJava.
+* The app has the following packages:
+** data: It contains all the data accessing and manipulating components.
+*** Local: it has all the local database & data store implementation.
+*** Remote: it has all the remote data store implementation.
+* features: View classes along with their corresponding ViewModel with presentation logic.
+* injection: Dependency providing classes using Dagger2.
+* interactors: It contains all use cases with their corresponding business logic if exists.
+
+
+## Testing:
+* Task contains more than 80% of unit tests for project classes and 1 Espresso ui test for Restaurants activity.
+
 

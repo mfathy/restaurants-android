@@ -7,6 +7,9 @@ import me.mfathy.task.data.model.Restaurant
 import me.mfathy.task.data.store.cache.db.RestaurantsDatabase
 import javax.inject.Inject
 
+/**
+ * Cache Data store implementation.
+ */
 class CacheDataStore @Inject constructor(
     private val database: RestaurantsDatabase,
     private val mapper: CachedRestaurantMapper

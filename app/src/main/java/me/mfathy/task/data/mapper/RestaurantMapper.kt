@@ -4,6 +4,12 @@ import me.mfathy.task.data.model.Restaurant
 import me.mfathy.task.data.store.remote.models.RestaurantItem
 import javax.inject.Inject
 
+/**
+ * Created by Mohammed Fathy.
+ * dev.mfathy@gmail.com
+ *
+ * RestaurantMapper maps between Restaurant & RestaurantItem
+ */
 open class RestaurantMapper @Inject constructor(
     private val sortingMapper: SortingValueMapper
 ) : EntityMapper<Restaurant, RestaurantItem> {

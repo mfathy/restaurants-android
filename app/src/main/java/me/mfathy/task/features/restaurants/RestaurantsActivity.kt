@@ -26,7 +26,9 @@ import me.mfathy.task.states.DataException
 import me.mfathy.task.states.RestaurantResult
 import javax.inject.Inject
 
-
+/**
+ * Restaurants Activity.
+ */
 class RestaurantsActivity : BaseActivity(),
     RestaurantsAdapter.OnAttachRestaurantsListener, PopupMenu.OnMenuItemClickListener {
 
@@ -35,6 +37,7 @@ class RestaurantsActivity : BaseActivity(),
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
     private lateinit var viewModel: RestaurantsViewModel
     private lateinit var restaurantsAdapter: RestaurantsAdapter
 
@@ -42,6 +45,7 @@ class RestaurantsActivity : BaseActivity(),
 
     private lateinit var searchView: SearchView
 
+    //region Activity methods
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_restaurants)
@@ -59,28 +63,6 @@ class RestaurantsActivity : BaseActivity(),
         observeSortingLiveData()
 
         viewModel.fetchRestaurants()
-    }
-
-    private fun initViews() {
-
-        layoutManager = LinearLayoutManager(this)
-        restaurantsAdapter = RestaurantsAdapter(this, mutableListOf(), mutableListOf(), this)
-
-        recyclerView_List.layoutManager = layoutManager
-        recyclerView_List.adapter = restaurantsAdapter
-
-        val dividerItemDecoration = DividerItemDecoration(
-            recyclerView_List.context,
-            DividerItemDecoration.VERTICAL
-        )
-        recyclerView_List.addItemDecoration(dividerItemDecoration)
-
-        swipe_refresh.setOnRefreshListener {
-            viewModel.fetchRestaurants()
-        }
-
-        recyclerView_List.setHasFixedSize(true)
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -110,6 +92,12 @@ class RestaurantsActivity : BaseActivity(),
         return true
     }
 
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        val sortingKey = item?.itemId?.let { getSortingKey(it) }
+        sortingKey?.let { viewModel.setSelectedSortingOption(it) }
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when {
             item.itemId == R.id.action_search -> true
@@ -117,8 +105,46 @@ class RestaurantsActivity : BaseActivity(),
         }
     }
 
+    override fun onBackPressed() {
+        if (!searchView.isIconified) {
+            searchView.isIconified = true
+            return
+        }
+        super.onBackPressed()
+    }
+    //endregion
+
+    //region Callbacks
+    override fun bookmarkRestaurant(restaurant: Restaurant, position: Int) {
+        viewModel.setBookmarkedRestaurant(restaurant, position)
+    }
+    //endregion
+
+    //region Others
     fun showSortingValues(v: View) {
         showPopup(v)
+    }
+
+    private fun initViews() {
+
+        layoutManager = LinearLayoutManager(this)
+        restaurantsAdapter = RestaurantsAdapter(this, mutableListOf(), mutableListOf(), this)
+
+        recyclerView_List.layoutManager = layoutManager
+        recyclerView_List.adapter = restaurantsAdapter
+
+        val dividerItemDecoration = DividerItemDecoration(
+            recyclerView_List.context,
+            DividerItemDecoration.VERTICAL
+        )
+        recyclerView_List.addItemDecoration(dividerItemDecoration)
+
+        swipe_refresh.setOnRefreshListener {
+            viewModel.fetchRestaurants()
+        }
+
+        recyclerView_List.setHasFixedSize(true)
+
     }
 
     private fun showPopup(v: View) {
@@ -128,20 +154,6 @@ class RestaurantsActivity : BaseActivity(),
             inflate(R.menu.menu_sort_actions)
             show()
         }
-    }
-
-    override fun onMenuItemClick(item: MenuItem?): Boolean {
-        val sortingKey = item?.itemId?.let { getSortingKey(it) }
-        sortingKey?.let { viewModel.setSelectedSortingOption(it) }
-        return true
-    }
-
-    override fun onBackPressed() {
-        if (!searchView.isIconified) {
-            searchView.isIconified = true
-            return
-        }
-        super.onBackPressed()
     }
 
     private fun getSortingKey(key: Int): SortingKeys {
@@ -261,10 +273,7 @@ class RestaurantsActivity : BaseActivity(),
         }
 
     }
-
-    override fun bookmarkRestaurant(restaurant: Restaurant, position: Int) {
-        viewModel.setBookmarkedRestaurant(restaurant, position)
-    }
+    //endregion
 
     /**
      * Only called from test, creates and returns a new [SimpleIdlingResource].

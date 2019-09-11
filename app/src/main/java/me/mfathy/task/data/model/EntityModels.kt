@@ -2,7 +2,12 @@ package me.mfathy.task.data.model
 
 import java.util.*
 
-
+/**
+ * Created by Mohammed Fathy.
+ * dev.mfathy@gmail.com
+ *
+ * Data layer models.
+ */
 data class Restaurant(
     val name: String = "",
     var isFavorite: Boolean,

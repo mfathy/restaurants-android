@@ -2,18 +2,15 @@ package me.mfathy.task.interactors.favorites
 
 import io.reactivex.Completable
 import konveyor.base.randomBuild
-import me.mfathy.task.ImmediateSchedulerRuleUnitTests
 import me.mfathy.task.any
+import me.mfathy.task.base.BaseUnitTest
 import me.mfathy.task.data.model.Restaurant
 import me.mfathy.task.data.repository.RestaurantsRepository
-import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
-import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
 /**
@@ -21,20 +18,14 @@ import org.mockito.junit.MockitoJUnitRunner
  * dev.mfathy@gmail.com
  */
 @RunWith(MockitoJUnitRunner::class)
-class UnBookmarkRestaurantTest {
-
-    @JvmField
-    @Rule
-    val immediateSchedulerRule = ImmediateSchedulerRuleUnitTests()
+class UnBookmarkRestaurantTest : BaseUnitTest() {
 
     @Mock
     lateinit var mockRepository: RestaurantsRepository
 
     private lateinit var unbookmarkRestaurant: UnBookmarkRestaurant
 
-    @Before
-    fun setUp() {
-        MockitoAnnotations.initMocks(this)
+    override fun postSetup() {
         unbookmarkRestaurant = UnBookmarkRestaurant(mockRepository)
     }
 

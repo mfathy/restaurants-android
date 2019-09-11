@@ -8,6 +8,9 @@ import java.io.IOException
 import java.nio.charset.Charset
 import javax.inject.Inject
 
+/**
+ * RemoteServiceApi implementation.
+ */
 class RemoteServiceApiImpl @Inject constructor(
     private val mContext: Context,
     private val mGson: Gson

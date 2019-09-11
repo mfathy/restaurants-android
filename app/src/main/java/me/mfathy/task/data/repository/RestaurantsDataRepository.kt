@@ -11,7 +11,7 @@ import me.mfathy.task.data.store.remote.models.RestaurantsResponse
 import javax.inject.Inject
 
 /**
- * RestaurantsDataRepository implementation.
+ * Restaurants DataRepository implementation.
  */
 class RestaurantsDataRepository @Inject constructor(
     private val remoteStore: RemoteStore,

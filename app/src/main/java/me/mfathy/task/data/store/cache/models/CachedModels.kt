@@ -7,6 +7,8 @@ import androidx.room.PrimaryKey
 /**
  * Created by Mohammed Fathy.
  * dev.mfathy@gmail.com
+ *
+ * Cache layer models.
  */
 
 @Entity(tableName = "restaurants")

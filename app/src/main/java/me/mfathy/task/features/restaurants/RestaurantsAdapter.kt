@@ -28,10 +28,6 @@ class RestaurantsAdapter @Inject constructor(
 ) :
     RecyclerView.Adapter<RestaurantsAdapter.RestaurantViewHolder>(), Filterable {
 
-    interface OnAttachRestaurantsListener {
-        fun bookmarkRestaurant(restaurant: Restaurant, position: Int)
-    }
-
     override fun getItemCount(): Int {
         return filteredRestaurants.count()
     }
@@ -92,17 +88,21 @@ class RestaurantsAdapter @Inject constructor(
         notifyItemChanged(restaurantPair.first)
     }
 
-    private fun resetRestaurants() {
-        this.originalRestaurants.clear()
-        this.filteredRestaurants.clear()
-    }
-
     fun sortItems(comparator: Comparator<Restaurant>) {
         filteredRestaurants.sortWith(comparator)
 
         val restaurantDiffUtils = RestaurantDiffUtils(originalRestaurants, filteredRestaurants)
         val result = DiffUtil.calculateDiff(restaurantDiffUtils)
         result.dispatchUpdatesTo(this)
+    }
+
+    private fun resetRestaurants() {
+        this.originalRestaurants.clear()
+        this.filteredRestaurants.clear()
+    }
+
+    interface OnAttachRestaurantsListener {
+        fun bookmarkRestaurant(restaurant: Restaurant, position: Int)
     }
 
     class RestaurantViewHolder(view: View) : RecyclerView.ViewHolder(view) {

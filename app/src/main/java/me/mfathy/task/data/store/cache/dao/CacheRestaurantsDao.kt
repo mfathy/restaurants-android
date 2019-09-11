@@ -10,6 +10,8 @@ import me.mfathy.task.data.store.cache.models.CachedRestaurant
 /**
  * Created by Mohammed Fathy.
  * dev.mfathy@gmail.com
+ *
+ * CachedRestaurant data access object.
  */
 @Dao
 abstract class CacheRestaurantsDao {

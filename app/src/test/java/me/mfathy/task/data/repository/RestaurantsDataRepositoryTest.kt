@@ -7,32 +7,28 @@ import me.mfathy.task.any
 import me.mfathy.task.data.mapper.RestaurantMapper
 import me.mfathy.task.data.mapper.SortingValueMapper
 import me.mfathy.task.data.model.Restaurant
+import me.mfathy.task.base.BaseUnitTest
 import me.mfathy.task.data.store.cache.CacheStore
 import me.mfathy.task.data.store.remote.RemoteStore
 import me.mfathy.task.data.store.remote.models.RestaurantItem
 import me.mfathy.task.data.store.remote.models.RestaurantsResponse
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.*
-import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class RestaurantsDataRepositoryTest {
-
+class RestaurantsDataRepositoryTest : BaseUnitTest() {
     private var mockRemoteStore: RemoteStore = mock(RemoteStore::class.java)
-    private var mockCacheStore: CacheStore = mock(CacheStore::class.java)
 
+    private var mockCacheStore: CacheStore = mock(CacheStore::class.java)
     private var mockMapper = mock(RestaurantMapper::class.java)
 
     private lateinit var repositoryUnderTest: RestaurantsDataRepository
 
     private val mapper = RestaurantMapper(SortingValueMapper())
 
-    @Before
-    fun setUp() {
-        MockitoAnnotations.initMocks(this)
+    override fun postSetup() {
         repositoryUnderTest = RestaurantsDataRepository(mockRemoteStore, mockCacheStore, mockMapper)
     }
 

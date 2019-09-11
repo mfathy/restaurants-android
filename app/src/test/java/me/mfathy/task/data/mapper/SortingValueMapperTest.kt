@@ -4,8 +4,11 @@ import konveyor.base.randomBuild
 import me.mfathy.task.data.model.Sorting
 import me.mfathy.task.data.store.remote.models.SortingValues
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 import kotlin.test.assertEquals
 
+@RunWith(JUnit4::class)
 class SortingValueMapperTest {
 
     private var sortingValueMapper = SortingValueMapper()

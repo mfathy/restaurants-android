@@ -7,6 +7,7 @@ import konveyor.base.randomBuild
 import me.mfathy.task.ImmediateSchedulerRuleUnitTests
 import me.mfathy.task.any
 import me.mfathy.task.argumentCaptor
+import me.mfathy.task.base.BaseUnitTest
 import me.mfathy.task.capture
 import me.mfathy.task.data.model.Restaurant
 import me.mfathy.task.data.model.Sorting
@@ -32,15 +33,11 @@ import kotlin.test.assertEquals
  * dev.mfathy@gmail.com
  */
 @RunWith(MockitoJUnitRunner::class)
-class RestaurantsViewModelTest {
-
+class RestaurantsViewModelTest: BaseUnitTest() {
     private val mockRestaurants = mock(GetRestaurants::class.java)
+
     private val mockBookmark = mock(BookmarkRestaurant::class.java)
     private val mockUnBookmark = mock(UnBookmarkRestaurant::class.java)
-
-    @JvmField
-    @Rule
-    val immediateSchedulerRule = ImmediateSchedulerRuleUnitTests()
 
     @Rule
     @JvmField
@@ -54,9 +51,7 @@ class RestaurantsViewModelTest {
     @Captor
     val bookmarkCaptor = argumentCaptor<CompletableObserver>()
 
-    @Before
-    fun setUp() {
-        MockitoAnnotations.initMocks(this)
+    override fun postSetup() {
         viewModel = RestaurantsViewModel(mockRestaurants, mockBookmark, mockUnBookmark)
     }
 

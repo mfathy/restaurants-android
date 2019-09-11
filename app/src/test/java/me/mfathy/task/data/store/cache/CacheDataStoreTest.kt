@@ -3,38 +3,32 @@ package me.mfathy.task.data.store.cache
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import konveyor.base.randomBuild
-import me.mfathy.task.ImmediateSchedulerRuleUnitTests
+import me.mfathy.task.base.BaseUnitTest
 import me.mfathy.task.data.mapper.CachedRestaurantMapper
 import me.mfathy.task.data.model.Restaurant
 import me.mfathy.task.data.store.cache.db.RestaurantsDatabase
 import me.mfathy.task.data.store.cache.models.CachedRestaurant
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
-import org.mockito.MockitoAnnotations
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
+import org.robolectric.annotation.Config
 
 /**
  * Created by Mohammed Fathy.
  * dev.mfathy@gmail.com
  */
 @RunWith(RobolectricTestRunner::class)
-class CacheDataStoreTest {
-
+class CacheDataStoreTest : BaseUnitTest() {
     private val mockMapper: CachedRestaurantMapper = mock(CachedRestaurantMapper::class.java)
 
     private val mapper = CachedRestaurantMapper()
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
-
-    @JvmField
-    @Rule
-    val immediateSchedulerRule = ImmediateSchedulerRuleUnitTests()
 
     private val database = Room.inMemoryDatabaseBuilder(
         RuntimeEnvironment.application.applicationContext,
@@ -43,14 +37,11 @@ class CacheDataStoreTest {
         .allowMainThreadQueries()
         .build()
 
+    override fun postSetup() {}
+
     private var cacheDataStore: CacheDataStore = CacheDataStore(
         database, mockMapper
     )
-
-    @Before
-    fun setUp() {
-        MockitoAnnotations.initMocks(this)
-    }
 
     @Test
     @Throws(Exception::class)

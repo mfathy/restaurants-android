@@ -3,6 +3,12 @@ package me.mfathy.task.data.mapper
 import me.mfathy.task.data.model.Sorting
 import me.mfathy.task.data.store.remote.models.SortingValues
 
+/**
+ * Created by Mohammed Fathy.
+ * dev.mfathy@gmail.com
+ *
+ * SortingValueMapper maps between Sorting & SortingValues
+ */
 open class SortingValueMapper : EntityMapper<Sorting, SortingValues> {
     override fun mapFromEntity(entity: Sorting): SortingValues = SortingValues(
         averageProductPrice = entity.averageProductPrice,

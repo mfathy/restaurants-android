@@ -153,9 +153,9 @@ class RestaurantsViewModel @Inject constructor(
     /**
      * Bookmark live data observable.
      */
-    private val bookmarkMovieLiveData: MutableLiveData<BookmarkResult> = MutableLiveData()
+    private val bookmarkLiveData: MutableLiveData<BookmarkResult> = MutableLiveData()
 
-    fun getBookmarkRestaurantLiveData() = bookmarkMovieLiveData
+    fun getBookmarkRestaurantLiveData() = bookmarkLiveData
 
     fun setBookmarkedRestaurant(restaurant: Restaurant, position: Int) {
         val bookmarkObserver = BookmarkObserver(this, restaurant, position)

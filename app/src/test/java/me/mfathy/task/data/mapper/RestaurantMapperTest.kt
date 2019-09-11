@@ -4,8 +4,11 @@ import konveyor.base.randomBuild
 import me.mfathy.task.data.model.Restaurant
 import me.mfathy.task.data.store.remote.models.RestaurantItem
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 import kotlin.test.assertEquals
 
+@RunWith(JUnit4::class)
 class RestaurantMapperTest {
 
     private val sortingMapper = SortingValueMapper()

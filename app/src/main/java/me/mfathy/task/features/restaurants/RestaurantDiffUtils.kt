@@ -8,6 +8,8 @@ import javax.inject.Inject
 /**
  * Created by Mohammed Fathy.
  * dev.mfathy@gmail.com
+ *
+ * RestaurantsAdapter Diff utils
  */
 class RestaurantDiffUtils @Inject constructor(
     private var oldRestaurants: MutableList<Restaurant>,

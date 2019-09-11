@@ -32,7 +32,7 @@ open class BaseActivity : AppCompatActivity() {
         recyclerView_List.visibility = if (showData) View.VISIBLE else View.INVISIBLE
 
         textView_List_callToAction.visibility = if (showError) View.VISIBLE else View.INVISIBLE
-        progressBar_movieList_loading.visibility = if (showLoading) View.VISIBLE else View.INVISIBLE
+        progressBar_List_loading.visibility = if (showLoading) View.VISIBLE else View.INVISIBLE
     }
 
     fun showToast(message: String) {

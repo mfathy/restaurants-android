@@ -1,6 +1,7 @@
 package me.mfathy.task.data.store.remote
 
 import io.reactivex.Single
+import me.mfathy.task.base.BaseUnitTest
 import me.mfathy.task.data.store.remote.models.RestaurantsResponse
 import me.mfathy.task.data.store.remote.service.RemoteServiceApi
 import org.junit.Before
@@ -15,16 +16,12 @@ import org.mockito.MockitoAnnotations
  * dev.mfathy@gmail.com
  */
 @RunWith(JUnit4::class)
-class RemoteDataStoreTest {
-
+class RemoteDataStoreTest: BaseUnitTest() {
     private val mockRemoteApi = mock(RemoteServiceApi::class.java)
 
     private val remoteStore = RemoteDataStore(mockRemoteApi)
 
-    @Before
-    fun setUp() {
-        MockitoAnnotations.initMocks(this)
-    }
+    override fun postSetup() {}
 
     @Test
     fun testGetRestaurants_Completes() {

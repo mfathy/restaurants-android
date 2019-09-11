@@ -3,6 +3,7 @@ package me.mfathy.task.interactors.restaurants
 import io.reactivex.Single
 import konveyor.base.randomBuild
 import me.mfathy.task.ImmediateSchedulerRuleUnitTests
+import me.mfathy.task.base.BaseUnitTest
 import me.mfathy.task.data.model.Restaurant
 import me.mfathy.task.data.repository.RestaurantsRepository
 import org.junit.Before
@@ -20,20 +21,14 @@ import org.mockito.junit.MockitoJUnitRunner
  * dev.mfathy@gmail.com
  */
 @RunWith(MockitoJUnitRunner::class)
-class GetRestaurantsTest {
-
-    @JvmField
-    @Rule
-    val immediateSchedulerRule = ImmediateSchedulerRuleUnitTests()
+class GetRestaurantsTest: BaseUnitTest() {
 
     private lateinit var getRestaurant: GetRestaurants
 
     @Mock
     lateinit var mockRepository: RestaurantsRepository
 
-    @Before
-    fun setUp() {
-        MockitoAnnotations.initMocks(this)
+    override fun postSetup() {
         getRestaurant = GetRestaurants(mockRepository)
     }
 
