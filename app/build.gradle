@@ -117,6 +117,7 @@ dependencies {
 
     // mocking
     testImplementation "org.mockito:mockito-core:${rootProject.ext.mockitoVersion}"
+    testImplementation "org.mockito:mockito-inline:${rootProject.ext.mockitoInlineVersion}"
 
     // robolectric
     testImplementation "org.robolectric:robolectric:${rootProject.ext.robolectricVersion}"
@@ -154,6 +155,7 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-web:${rootProject.ext.espressoVersion}"
     androidTestImplementation "androidx.test.espresso.idling:idling-concurrent:${rootProject.ext.espressoVersion}"
     androidTestImplementation "androidx.test.espresso:espresso-idling-resource:${rootProject.ext.espressoVersion}"
+    implementation "androidx.test.espresso:espresso-idling-resource:${rootProject.ext.espressoVersion}"
 
     kaptTest "com.google.dagger:dagger-compiler:${rootProject.ext.daggerVersion}"
     kaptAndroidTest "com.google.dagger:dagger-compiler:${rootProject.ext.daggerVersion}"

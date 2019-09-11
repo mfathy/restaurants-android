@@ -76,7 +76,7 @@ ext {
 
     dexmakerMockitoversion = '2.2.0'
     mockitoAndroidVersion = "2.8.9"
-    mockitoVersion = '1.9.8'
+    mockitoVersion = '1.9.5'
     mockitoInlineVersion = '2.7.13'
     mockitoVersion_all = "1.10.19"
 

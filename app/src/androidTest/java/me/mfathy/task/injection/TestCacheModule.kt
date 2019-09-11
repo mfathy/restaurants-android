@@ -1,8 +1,8 @@
 package me.mfathy.task.injection
 
-import com.bumptech.glide.load.engine.cache.MemoryCache
 import dagger.Module
 import dagger.Provides
+import me.mfathy.task.data.store.cache.CacheStore
 import org.mockito.Mockito.mock
 
 /**
@@ -12,13 +12,13 @@ import org.mockito.Mockito.mock
  * Dagger module to provide remote dependencies.
  */
 @Module
-object TestMemoryModule {
+object TestCacheModule {
 
 
     @Provides
     @JvmStatic
-    fun provideMemoryCache(): MemoryCache {
-        return mock(MemoryCache::class.java)
+    fun provideCacheCache(): CacheStore {
+        return mock(CacheStore::class.java)
     }
 
 

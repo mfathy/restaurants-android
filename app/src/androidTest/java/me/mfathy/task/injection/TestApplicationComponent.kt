@@ -16,7 +16,7 @@ import javax.inject.Singleton
         TestDataModule::class,
         ViewModelsModule::class,
         TestUiModule::class,
-        TestMemoryModule::class,
+        TestCacheModule::class,
         TestRemoteModule::class]
 )
 interface TestApplicationComponent {

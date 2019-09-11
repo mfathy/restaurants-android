@@ -7,6 +7,7 @@ import me.mfathy.task.data.model.Restaurant
 import me.mfathy.task.data.model.SortingKeys
 import me.mfathy.task.features.base.BaseViewModel
 import me.mfathy.task.features.bookmark.BookmarkObserver
+import me.mfathy.task.idlingResource.SimpleIdlingResource
 import me.mfathy.task.interactors.favorites.BookmarkRestaurant
 import me.mfathy.task.interactors.favorites.UnBookmarkRestaurant
 import me.mfathy.task.interactors.restaurants.GetRestaurants
@@ -28,6 +29,15 @@ class RestaurantsViewModel @Inject constructor(
     private val bookmarkRestaurant: BookmarkRestaurant,
     private val unBookmarkRestaurant: UnBookmarkRestaurant
 ) : BaseViewModel() {
+
+    /**
+     * Idling resource for espresso testing.
+     */
+    private lateinit var mIdlingResource: SimpleIdlingResource
+
+    fun setIdlingResource(idlingResource: SimpleIdlingResource) {
+        this.mIdlingResource = idlingResource
+    }
 
     /**
      * Default sorting option for restaurants.
@@ -56,6 +66,8 @@ class RestaurantsViewModel @Inject constructor(
      * Start fetching restaurants.
      */
     fun fetchRestaurants() {
+        if (::mIdlingResource.isInitialized) mIdlingResource.setIdleState(false)
+
         //  Update loading progress.
         showProgress()
 
@@ -122,6 +134,8 @@ class RestaurantsViewModel @Inject constructor(
             mutableList.sortWith(sortByOptionComparator)
 
             restaurantsLiveData.postValue(RestaurantResult.OnSuccess(mutableList))
+
+            if (::mIdlingResource.isInitialized) mIdlingResource.setIdleState(true)
         }
 
         override fun onError(e: Throwable) {
@@ -130,6 +144,8 @@ class RestaurantsViewModel @Inject constructor(
                     DataException.NotFoundException
                 )
             )
+
+            if (::mIdlingResource.isInitialized) mIdlingResource.setIdleState(true)
         }
     }
 

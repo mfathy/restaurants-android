@@ -1,6 +1,5 @@
 package me.mfathy.task.injection
 
-import me.mfathy.task.features.favorites.FavoritesActivity
 import me.mfathy.task.features.restaurants.RestaurantsActivity
 import me.mfathy.task.injection.scope.ViewScope
 import dagger.Module
@@ -14,9 +13,6 @@ abstract class TestUiModule {
 
     @ViewScope
     @ContributesAndroidInjector
-    abstract fun contributesSearchActivity(): RestaurantsActivity
+    abstract fun contributesRestaurantsActivity(): RestaurantsActivity
 
-    @ViewScope
-    @ContributesAndroidInjector
-    abstract fun contributesFavortiesActivity(): FavoritesActivity
 }
