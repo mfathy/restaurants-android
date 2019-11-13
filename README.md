@@ -1,13 +1,12 @@
-# Takeaway Task
+# Restaurants Sorting Sample for Android
 
 By [Mohammed Fathy](mailto:dev.mfathy@gmail.com)
 
 ## Instructions
 
-1. Download task.zip file.
-2. Extract task.zip file.
-3. Start Android studio, then open the project, from open dialog.
-4. Wait until the project syncs and builds successfully.
+1. Clone the repo from 'https://github.com/mfathy/restaurants-sorting/'
+2. Start Android studio, then open the project, from open dialog.
+3. Wait until the project syncs and builds successfully.
 
 ## Discussion
 
@@ -33,9 +32,3 @@ I used the following libraries:
 * features: View classes along with their corresponding ViewModel with presentation logic.
 * injection: Dependency providing classes using Dagger2.
 * interactors: It contains all use cases with their corresponding business logic if exists.
-
-
-## Testing:
-* Task contains unit tests for project classes and 1 Espresso ui test for Restaurants activity.
-
-
