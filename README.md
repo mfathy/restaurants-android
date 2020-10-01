@@ -1,5 +1,5 @@
 ## Overview
-# Android Restaurants Sorting Sample for learning purposes
+Android Restaurants Sorting Sample for learning purposes
 
 ## Tech Stack
 #kotlin #mockito #gson # dagger #retrofit #android #arch #component
