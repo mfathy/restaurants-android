@@ -1,4 +1,8 @@
-# Restaurants Sorting Sample for Android
+## Overview
+# Android Restaurants Sorting Sample for learning purposes
+
+## Tech Stack
+#kotlin #mockito #gson # dagger #retrofit #android #arch #component
 
 By [Mohammed Fathy](mailto:dev.mfathy@gmail.com)
 
@@ -20,15 +24,3 @@ I used the following libraries:
 *   [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/) - LiveData & ViewModel.
 *   [Konveyor](https://github.com/vacxe/Konveyor) - Library for building objects with random parameters.
 
-
-## Requirements
-
-##### Implementing and visualise a restaurant list with filtering & sorting.
-* Task implemented using MVVM architecture with Dagger2, Room, and RxJava.
-* The app has the following packages:
-* data: It contains all the data accessing and manipulating components.
-* Local: it has all the local database & data store implementation.
-* Remote: it has all the remote data store implementation.
-* features: View classes along with their corresponding ViewModel with presentation logic.
-* injection: Dependency providing classes using Dagger2.
-* interactors: It contains all use cases with their corresponding business logic if exists.
